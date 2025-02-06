@@ -58,6 +58,4 @@
 
 <br clear="both">
 
-<img src="https://raw.githubusercontent.com/naufallraaa/naufallraaa/output/snake.svg" alt="Snake animation" />
-
 ###
