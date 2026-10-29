@@ -1,19 +1,30 @@
-name: Generate Pacman Contribution Graph
+name: Generate Snake/Pacman Graph
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Jalan otomatis tiap jam 12 malam
-  workflow_dispatch: # Bisa di-trigger manual
+    - cron: "0 0 * * *"
+  workflow_dispatch:
 
 jobs:
-  github-metrics:
+  generate:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+
     steps:
-      - uses: lowlighter/metrics@latest
+      - name: Generate pacman SVG
+        uses: platane/snk/svg-only@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          output_action: commit
-          committer_branch: pacman-output
-          committer_message: "chroma: update pacman graph"
-          plugin_isocalendar: yes
-          plugin_isocalendar_duration: full-year
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/pacman-contribution-graph.svg?palette=github-dark&color_snake=orange
+            dist/pacman-contribution-graph-dark.svg?palette=github-dark&color_snake=orange
+
+      - name: Push to pacman-output branch
+        uses: crazy-max/ghaction-github-pages@v3.1.0
+        with:
+          target_branch: pacman-output
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
