@@ -27,7 +27,6 @@
 
 <br />
 
-<!-- Catatan: Pacman ini membutuhkan GitHub Action workflow di repo kamu agar branch pacman-output terbentuk -->
 <div align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/naufallraaa/naufallraaa/pacman-output/pacman-contribution-graph-dark.svg">
