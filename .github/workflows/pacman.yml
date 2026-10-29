@@ -1,25 +1,19 @@
 name: Generate Pacman Contribution Graph
 
 on:
-  # Berjalan otomatis setiap 24 jam (jam 12 malam)
   schedule:
-    - cron: "0 0 * * *"
-
-  # Mengizinkan Anda menjalankan secara manual dari tab Actions
-  workflow_dispatch:
+    - cron: "0 0 * * *" # Jalan otomatis tiap jam 12 malam
+  workflow_dispatch: # Bisa di-trigger manual
 
 jobs:
-  generate:
+  github-metrics:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-
     steps:
-      - name: Generate Pacman Graph
-        uses: lowlighter/metrics@latest
+      - uses: lowlighter/metrics@latest
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          user: naufallraaa
-          template: classic
-          base: ""
+          output_action: commit
+          committer_branch: pacman-output
+          committer_message: "chroma: update pacman graph"
           plugin_isocalendar: yes
-          plugin_isocalendar_duration: half-year
+          plugin_isocalendar_duration: full-year
