@@ -1,0 +1,16 @@
+name: Generate Trophy
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ryo-ma/github-profile-trophy@master
+        with:
+          user-name: naufallraaa
+          target-branch: trophy-output
