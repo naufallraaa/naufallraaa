@@ -8,9 +8,22 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
-      - uses: ryo-ma/github-profile-trophy@master
+
+      - name: Generate Trophy SVG
+        uses: ryo-ma/github-profile-trophy@master
         with:
-          user-name: naufallraaa
-          target-branch: trophy-output
+          username: naufallraaa
+          output_path: trophy.svg
+
+      - name: Push to trophy-output branch
+        uses: crazy-max/ghaction-github-pages@v3.1.0
+        with:
+          target_branch: trophy-output
+          build_dir: .
+          keep_history: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
